@@ -27,7 +27,7 @@ function send()
 }
 
 
-function getData() { firebase.database().ref("/"+room_name).on('value', function(snapshot) { document.getElementById("output").innerHTML = ""; snapshot.forEach(function(childSnapshot) { childKey  = childSnapshot.key; childData = childSnapshot.val(); if(childKey != "purpose") {
+function getData() { firebase.database().ref("/"+room_name).on('value', function(snapshot) { document.getElementById("output").innerHTML = "no message here"; snapshot.forEach(function(childSnapshot) { childKey  = childSnapshot.key; childData = childSnapshot.val(); if(childKey != "purpose") {
          firebase_message_id = childKey;
          message_data = childData;
 //Start code
@@ -41,7 +41,6 @@ nameTag = "<h4>"+Name+"<img src='tick.png' class='user_tick'></h4>"
 essage = "<h4 class='message_h4'>"+message+"</h4>"
 buttonI = "<button class = 'btn btn-info' id = "+firebase_message_id+" value = "+likes+" onclick = 'likesToo(this.id)'>"
 buttonToo = "<span class = 'glyphicon glyphicon-thumbs-up'> Like-"+likes+"</span></button><hr>"
-
 
 row = nameTag + essage + buttonI + buttonToo
 
@@ -58,4 +57,10 @@ function likesToo(message_id)
       firebase.database().ref(room_name).child(message_id).update({
             likes:like_updated
       })
+}
+function logout()
+{
+      localStorage.removeItem("roomName")
+      localStorage.removeItem("username")
+      window.location = "index.html"
 }
